@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flask Server</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-md-6 offset-md-3">
+        <h2 class="text-center mb-4">Flask Server</h2>
+        <form>
+          <div class="form-group">
+            <input type="text" class="form-control" id="promptInput" placeholder="Enter prompt">
+          </div>
+          <button type="button" class="btn btn-primary" id="generateBtn">Generate</button>
+        </form>
+        <div class="mt-4">
+          <p id="responseText"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const generateBtn = document.getElementById('generateBtn');
+    const responseText = document.getElementById('responseText');
+
+    generateBtn.addEventListener('click', () => {
+      const promptInput = document.getElementById('promptInput').value.trim();
+      if (promptInput) {
+        axios.post('/prompt', {
+            prompt: promptInput
+          })
+          .then(function(response) {
+            responseText.innerHTML = response.data;
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    });
+  </script>
+</body>
+
+</html>
